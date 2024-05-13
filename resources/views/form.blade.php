@@ -72,7 +72,7 @@
 
                     <div class="form-group mb-3">
                         <label for="exampleFormControlSelect1">Provinsi:</label>
-                        <select class="form-control" id="exampleFormControlSelect1">
+                        <select class="form-control" id="provinsi">
                             <option style="display:none">select</option>
                             <option value="11">ACEH</option>
                             <option value="51">BALI</option>

@@ -24,7 +24,7 @@
                 </p>
 
                 <div class="d-flex align-items-center justify-content-center py-5 ">
-                    <a class="btn-hover-bg btn btn-success rounded-pill text-white py-3 px-5" href="/form">Isi Formulir
+                    <a class="btn-hover-bg btn btn-success rounded-pill text-white py-3 px-5" href="/reservasi/form">Isi Formulir
                     </a>
                 </div>
             </div>
