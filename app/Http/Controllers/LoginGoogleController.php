@@ -27,7 +27,7 @@ class LoginGoogleController extends Controller
 
                 Auth::login($finduser);
 
-                return redirect()->intended('form');
+                return redirect()->intended('reservasi/form');
 
             } else {
                 $newUser = User::create([
@@ -46,5 +46,16 @@ class LoginGoogleController extends Controller
             dd($e->getMessage());
         }
 
+    }
+
+    public function logout(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect('/'); // Redirect ke halaman utama atau halaman login
     }
 }
