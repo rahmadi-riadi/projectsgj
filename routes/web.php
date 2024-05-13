@@ -24,3 +24,4 @@ Route::get('/form', function () {
     return view('form');
 });
 
+Route::post('/dashboard/daftaradmin', [RegisterController::class, 'store'])->middleware('admin');
