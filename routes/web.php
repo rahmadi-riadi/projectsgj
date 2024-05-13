@@ -5,6 +5,8 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ReservasiController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\LoginGoogleController;
+
 
 Route::get('/', function () {
     return view('home');
@@ -36,3 +38,7 @@ Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout']);
 
 Route::get('/admin', [DashboardController::class, 'index'])->middleware('auth');
+
+
+Route::get('auth/google', [LoginGoogleController::class, 'googlepage']);
+Route::get('auth/google/callback', [LoginGoogleController::class, 'googlecallback']);

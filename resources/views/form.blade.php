@@ -51,23 +51,23 @@
                     </div> --}}
                     <div class="form-group mb-3">
                         <label class="required">Nama: </label>
-                        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+                        <input type="text" class="form-control" id="nama" placeholder="Example input">
                     </div>
                     <div class="form-group mb-3">
                         <label class="required">Nama Instansi Pemohon: </label>
-                        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+                        <input type="text" class="form-control" id="nama_instansi" placeholder="Example input">
                     </div>
                     <div class="form-group mb-3">
                         <label class="required">Nomor HP.(dapat menerima panggilan): </label>
-                        <input type="number" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+                        <input type="number" class="form-control" id="nomor_hp" placeholder="Example input">
                     </div>
                     <div class="form-group mb-3">
                         <label class="required">Nomor WA (boleh sama dengan nomor HP): </label>
-                        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+                        <input type="text" class="form-control" id="nomor_wa" placeholder="Example input">
                     </div>
                     <div class="form-group mb-3">
                         <label class="required">Email Lembaga/Instansi/Pemohon: </label>
-                        <input type="email" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+                        <input type="email" class="form-control" id="email" placeholder="Example input">
                     </div>
 
                     <div class="form-group mb-3">
@@ -116,7 +116,7 @@
                     </div>
                     <div class="form-group mb-3">
                         <label class="required">Alamat Instansi: </label>
-                        <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+                        <input type="text" class="form-control" id="alamat_instansi" placeholder="Example input">
                     </div>
 
                     <div class="alert alert-primary d-flex align-items-center" role="alert">
@@ -135,7 +135,7 @@
                         <label>Hari & pukul kunjungan:</label>
                         <br />
                         <span class="text-danger fs-8 mt-20 ms-3">Pendaftaran minimal 3 hari kerja.</span>
-                        <input required type="date" class="form-control tanggalreservasi">
+                        <input required type="date" class="form-control tanggalreservasi" id="tanggal">
                         <br />
                         <select class="form-select " name="jam_berkunjung" id="jam_berkunjung"
                             data-placeholder="Pilih salah satu" data-allow-clear="true">
@@ -153,12 +153,12 @@
 
                     <div class="form-group mb-3">
                         <label for="exampleFormControlTextarea1">Topik Diskusi:</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        <textarea class="form-control" id="topik_diskusi" rows="3"></textarea>
                     </div>
 
                     <div class="form-group mb-3">
                         <label for="exampleFormControlSelect1">Tujuan OPD yang akan dikunjungi:</label>
-                        <select class="form-control" id="exampleFormControlSelect1">
+                        <select class="form-control" id="tujuan_opd">
                             <option style="display:none"></option>
                             <option value="11">ACEH</option>
                             <option value="51">BALI</option>
@@ -203,17 +203,17 @@
 
                     <div class="form-group mb-3">
                         <label>Jumlah rombongan:</label>
-                        <input required type="number" class="form-control" onkeypress="return isNumber(event);">
+                        <input required type="number" class="form-control" onkeypress="return isNumber(event);"
+                            id="jumlah_rombongan">
                     </div>
                     <div class="form-group mb-3">
                         <label class="required">Rencanan Pimpinan Rombongan: </label>
-                        <input type="text" class="form-control" id="formGroupExampleInput"
-                            placeholder="Example input">
+                        <input type="text" class="form-control" id="pimpinan_rombongan" placeholder="Example input">
                     </div>
 
                     <div class="form-group mb-3">
                         <label for="exampleFormControlTextarea1">Keterangan:</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        <textarea class="form-control" id="keterangan" rows="3"></textarea>
                     </div>
 
                     <div class="alert alert-primary d-flex align-items-center" role="alert">
@@ -225,19 +225,18 @@
 
                     <div class="form-group mb-3">
                         <label class="required">No. Surat Permohonan Kunjungan: </label>
-                        <input type="text" class="form-control" id="formGroupExampleInput"
-                            placeholder="Example input">
+                        <input type="text" class="form-control" id="no_surat_permohonan" placeholder="Example input">
                     </div>
 
                     <div class="form-group mb-3">
                         <label class="required">Kepada: </label>
-                        <input type="text" class="form-control form-control-solid" id="formGroupExampleInput"
+                        <input type="text" class="form-control form-control-solid" id="kepada"
                             placeholder="Example input" value="Walikota" readonly>
                     </div>
 
                     <div class="form-group mb-3">
                         <label>Surat Permohonan Kunjungan :</label>
-                        <input type="file" class="form-control" accept=".jpeg,.jpg,.png,.pdf">
+                        <input type="file" class="form-control" accept=".jpeg,.jpg,.png,.pdf" id="surat_permohonan">
                         <small class="text-danger mt-20">File format <span class="fw-bolder">.jpg/.jpeg/.png/.pdf</span>
                             dan ukuran maks <span class="fw-bolder">3MB</span></small>
                     </div>
@@ -248,7 +247,7 @@
                             <br>
                             <small class="text-danger mt-20">semua pernyataan wajib dicentang</small>
                             <div class="form-check mt-3">
-                                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                                <input class="form-check-input" type="checkbox" value="" id="bukti_inap">
                                 <label class="form-check-label" for="defaultCheck1">
                                     melaporkan bukti inap di wilayah kota Parepare
                                 </label>
@@ -263,7 +262,7 @@
                         Peringatan: Cukup klik submit sekali agar tidak terjadi duplikat data!
                     </div>
 
-                    
+
                     <div class="d-flex justify-content-start mt-3">
 
                         <a class="btn-hover-bg btn btn-outline-primary rounded-pill text-black" href="#">Batal
