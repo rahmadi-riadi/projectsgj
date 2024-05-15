@@ -14,9 +14,21 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item {{ Request::is('dashboard') ? 'active' : '' }}">
-        <a class="nav-link" href="/dashboard">
+        <a class="nav-link" href="/admin">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a>
+    </li>
+
+    <li class="nav-item {{ Request::is('dashboard/') ? 'active' : '' }}">
+        <a class="nav-link" href="/dashboard/ticketbox">
+            <i class="fas fa-calendar-alt"></i>
+            <span>Agenda Pertemuan</span></a>
+    </li>
+
+    <li class="nav-item {{ Request::is('dashboard/') ? 'active' : '' }}">
+        <a class="nav-link" href="/dashboard/ticketbox">
+            <i class="fas fa-handshake"></i>
+            <span>Layanan</span></a>
     </li>
 
     <!-- Divider -->
@@ -29,9 +41,15 @@
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item {{ Request::is('dashboard/posts*') ? 'active' : '' }}">
-        <a class="nav-link " href="/dashboard/posts">
-            <i class="fas fa-book"></i>
+        <a class="nav-link " href="/admin/posts">
+            <i class="fas fa-image"></i>
             <span>Galeri post</span>
+        </a>
+    </li>
+    <li class="nav-item {{ Request::is('dashboard/wisata*') ? 'active' : '' }}">
+        <a class="nav-link " href="/admin/wisata">
+            <i class="fas fa-book"></i>
+            <span>Galeri wisata</span>
         </a>
     </li>
 
@@ -60,11 +78,6 @@
     </li>
 
 
-    <li class="nav-item {{ Request::is('dashboard/ticketbox*') ? 'active' : '' }}">
-        <a class="nav-link" href="/dashboard/ticketbox">
-            <i class="fas fa-calendar-alt"></i>
-            <span>Agenda Pertemuan</span></a>
-    </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">

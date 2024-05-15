@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Reservasi;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,10 +15,44 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::create([
-            'name' => 'admin',
-            'email' => 'admin@admin.com',
-            'password' => bcrypt('12345')
-        ]);
+        $user = User::where('name', 'admin')->first();
+
+        if (!$user) {
+            $user = User::create([
+                'name' => 'admin',
+                'email' => 'admin@admin.com',
+                'password' => bcrypt('12345')
+            ]);
+        }
+
+        $reservasi = Reservasi::where('nama', 'rahmadi')->first();
+
+        if (!$reservasi) {
+            Reservasi::create([
+                'user_id' => $user->id,
+                'nama' => 'Rahmadi',
+                'nama_instansi' => 'Kantor',
+                'nomor_hp' => '088888888',
+                'nomor_wa' => '0502050505',
+                'email' => 'email@email.com',
+                'provinsi' => 'sulsel',
+                'kota_kabupaten' => 'paeprap',
+                'alamat_instansi' => 'jalananan',
+                'tanggal' => now()->format('Y-m-d'),
+                'pukul' => now()->format('H:i:s'),
+                'topik' => 'pemabahasan',
+                'tujuan_opd' => 'kantor sana',
+                'jumlah_rombongan' => 5,
+                'pimpinan' => 'bapak ini',
+                'keterangan' => 'ada',
+                'nomor_surat' => 1,
+                'kepada' => 'walikota',
+                'surat_permohonan' => '',
+                'is_bukti_inap' => true,
+
+
+            ]);
+        }
     }
 }
+

@@ -6,11 +6,7 @@
     <meta charset="utf-8">
     <title>SIJAGAD KOTA PAREPARE</title>
 
-    <link rel="icon" href="" type="image/x-icon" />
-
-
     {{-- ganti icon --}}
-
 
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
@@ -56,8 +52,22 @@
                     <a href="/reservasi" class="nav-item nav-link">Reservasi</a>
                     <a href="/peta" class="nav-item nav-link">Peta BalaiKota</a>
 
+                    <li class="nav-item dropdown">
+                        @auth
+                            <a class="nav-link dropdown-toggle text-warning fw-bold" href="#" id="dropdownMenuButton1"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <strong class="text-warning">Hello {{ auth()->user()->name }}</strong>
+                            </a>
+
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                            </ul>
+                        @endauth
+                    </li>
+
                 </div>
-                <a href="#" class="btn btn-primary rounded-pill py-2 px-4 ms-lg-4">Masuk</a>
+
+                {{-- <a href="/logout" class="btn btn-primary rounded-pill py-2 px-4 ms-lg-4">Logout</a> --}}
             </div>
         </nav>
 
@@ -68,16 +78,23 @@
 
         <!-- Footer Start -->
         <div class="container-fluid footer py-5">
+            <a class="navbar-brand" href="#">
+                <img src="/frontend/assets/img/Logo_Parepare_Baru.png" width="150" height="150" alt="Logo"
+                    class="img-fluid" style="margin-left: 150px">
+            </a>
             <div class="container py-5">
                 <div class="row g-5">
                     <div class="col-md-6 col-lg-6 col-xl-3">
                         <div class="footer-item d-flex flex-column">
-                            <img src="https://www.sulselsatu.com/assets/media/upload/2021/12/FB_IMG_1638698172434.jpg"
+                            {{-- <img src="https://www.sulselsatu.com/assets/media/upload/2021/12/FB_IMG_1638698172434.jpg"
                                 class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}"
-                                alt="">
-                            <h4 class="mb-4 text-white">Get In Touch</h4>
-                            <a href=""><i class="fas fa-home me-2"></i> 123 Street, New York, USA</a>
-                            <a href=""><i class="fas fa-envelope me-2"></i> info@example.com</a>
+                                alt=""> --}}
+                            <h4 class="mb-4 text-white">Hubungi Kami</h4>
+                            <a href="https://maps.app.goo.gl/DbmU97XX4u8PGRvs6"><i class="fas fa-home me-2"></i> Jl.
+                                Jenderal Sudirman No.78, Bumi
+                                Harapan, Kec. Bacukiki Bar., Kota Parepare, Sulawesi Selatan 91122</a>
+                            <a href="mailto:setdako@pareparekota.go.id"><i
+                                    class="fas fa-envelope me-2"></i>setdako@pareparekota.go.id</a>
                             <a href=""><i class="fas fa-phone me-2"></i> +012 345 67890</a>
                             <a href="" class="mb-3"><i class="fas fa-print me-2"></i> +012 345 67890</a>
 

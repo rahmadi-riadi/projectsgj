@@ -24,17 +24,46 @@
 
             </div>
         </div>
-        <!-- Packages End -->
-        {{-- <div class="container d-flex justify-content-center py-5">
-            <iframe
-                src="https://calendar.google.com/calendar/embed?height=800&wkst=1&ctz=Asia%2FMakassar&bgcolor=%233F51B5&showCalendars=0&showTz=0&hl=id&src=YjBkMWY3ZjkxODgwMmY4MzgyZmVhNjljZjgyODUwZmExNzk2MDQ1ZWMxNzEyOTA2MjQzZjY2ZDQyNjQ3NzNlNEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&src=aWQuaW5kb25lc2lhbiNob2xpZGF5QGdyb3VwLnYuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&color=%238E24AA&color=%230B8043"
-                style="border:solid 1px #777" width="1000" height="800" frameborder="0" scrolling="no"></iframe>
-        </div> --}}
 
-        {{-- kalender --}}
-        {{-- <div class="container-fluid mb-4">
-            <div id='calendar'>Kalender</div>
-        </div> --}}
+
+        <div id="calendar"></div>
+        @push('script')
+        <script>
+            $(document).ready(function() {
+                $('#calendar').fullCalendar({
+                    initialView: 'dayGridMonth',
+                    header: {
+                        left: '',
+                        center: 'title',
+                        right: 'prev,next today'
+                    },
+                    dayHeaders: function(date, groupInformation) {
+                        return $(`
+                            <span>${date.format('DD')}</span>
+                        `);
+                    },
+                    events: function(start, end, callback) {
+                        $.ajax({
+                            url: "{{ url('api/jadwal') }}",
+                            type: 'GET',
+                            dataType: 'json',
+                            success: function(data) {
+                                var events = [];
+                                $.each(data, function(key, value) {
+                                    events.push({
+                                        title: value.judul,
+                                        start: new Date(value.tanggal.getFullYear(), value.tanggal.getMonth(), value.tanggal.getDate(), value.pukul.split(':')[0], value.pukul.split(':')[1], 0),
+                                        end: new Date(value.tanggal.getFullYear(), value.tanggal.getMonth(), value.tanggal.getDate(), value.pukul.split(':')[0], value.pukul.split(':')[1], 59)
+                                    });
+                                });
+                                callback(events);
+                            }
+                        });
+                    }
+                });
+            });
+        </script>
+        @endpush
 
 
     </div>

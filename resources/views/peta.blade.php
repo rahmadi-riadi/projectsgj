@@ -7,7 +7,7 @@
             <div class="container text-center py-5" style="max-width: 900px;">
                 <h3 class="text-white display-3 mb-4">Peta Balaikota</h1>
                     <ol class="breadcrumb justify-content-center mb-0">
-                        <li class="breadcrumb-item"><a href="/home">Beranda</a></li>
+                        <li class="breadcrumb-item"><a href="/">Beranda</a></li>
 
                         <li class="breadcrumb-item active text-white">Peta Balaikota</li>
                     </ol>
@@ -31,11 +31,11 @@
                             <div class="text-center mb-4">
                                 <i class="fa fa-map-marker-alt fa-3x text-primary"></i>
                                 <h4 class="text-primary">
-                                    Location
-                                    <Address></Address>
+                                    Lokasi
+
 
                                 </h4>
-                                <p class="mb-0">123 ranking Street, <br> New York, USA</p>
+                                <p class="mb-0">Kota Parepare, Sulawesi Selatan 91122</p>
                             </div>
 
 
@@ -48,7 +48,7 @@
 
                             <div class="text-center mb-4">
                                 <i class="fa fa-phone-alt fa-3x text-primary mb-3"></i>
-                                <h4 class="text-primary">Mobile</h4>
+                                <h4 class="text-primary">Seluler</h4>
                                 <p class="mb-0">+012 345 67890</p>
                                 <p class="mb-0">+012 345 67890</p>
                             </div>
@@ -63,8 +63,8 @@
                             <div class="text-center">
                                 <i class="fa fa-envelope-open fa-3x text-primary mb-3"></i>
                                 <h4 class="text-primary">Email</h4>
-                                <p class="mb-0">info@example.com</p>
-                                <p class="mb-0">info@example.com</p>
+                                <a class="mb-0" href="mailto:setdako@pareparekota.go.id">setdako@pareparekota.go.id</a>
+                                <p class="mb-0"></p>
                             </div>
                         </div>
                     </div>

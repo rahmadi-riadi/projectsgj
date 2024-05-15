@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
@@ -13,13 +12,17 @@ return new class extends Migration
     {
         Schema::create('reservasis', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
+            $table->foreignId('user_id')
+                ->constrained('users')
+                ->onDelete('cascade');
+
             $table->string('nama');
             $table->string('nama_instansi');
             $table->string('nomor_hp');
             $table->string('nomor_wa');
             $table->string('email')->unique();
             $table->string('provinsi');
+            $table->string('kota_kabupaten');
             $table->string('alamat_instansi');
             $table->date('tanggal');
             $table->string('pukul');
@@ -30,7 +33,7 @@ return new class extends Migration
             $table->text('keterangan');
             $table->string('nomor_surat');
             $table->string('kepada');
-            $table->string('file_surat_permohonan');
+            $table->string('surat_permohonan');
             $table->boolean('is_bukti_inap')->default(false);
             $table->timestamps();
         });
@@ -44,3 +47,4 @@ return new class extends Migration
         Schema::dropIfExists('reservasis');
     }
 };
+

@@ -15,6 +15,7 @@ class DashboardController extends Controller
             'title' => 'dashboard',
             // 'active' => 'login'
         ]);
+       
     }
 
     /**
