@@ -81,6 +81,9 @@
 
     <div class="card-body">
         <div class="table-responsive">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-3">
+                <a href="" class="btn btn-primary">Tambah Pemohon</a>
+            </div>
 
             <table class="table table-bordered table-striped table-hover datatable" id="table-reservasi">
                 <thead>

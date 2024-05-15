@@ -1,6 +1,8 @@
 @extends('layout.frontend.header')
 
 @section('content')
+
+
     <div class="main">
         <!-- Header Start -->
         <div class="container-fluid bg-breadcrumb">
@@ -20,10 +22,10 @@
             </div>
             <div class="container mx-auto">
 
-                <div class="alert alert-danger d-flex align-items-center" role="alert">
+                <div class="alert alert-warning d-flex align-items-center" role="alert">
                     <i class="fas fa-exclamation-triangle me-3"></i>
                     <div>
-                        <h4 class="text-danger">peringatan</h4>
+                        <h4 class="text-warning">peringatan</h4>
                         Formulir ini merupakan bagian untuk memudahkan proses reservasi. Penjadwalan kunjungan secara resmi
                         akan dilakukan setelah surat permohonan resi dikirimkan melalui pos .Saat ini anda berapa pada tahap
                         awal dari syarat yang harus dipenuhi untuk dapat melakukan kunjungan tamu di Pemerintah Kota
@@ -41,7 +43,8 @@
             <div class="container">
 
 
-                <form action="{{ route('Reservasi.store') }}" method="POST">
+                <form action="/reservasi" method="POST">
+                    @method('put')
                     @csrf
 
                     <div class="form-group mb-3">
@@ -235,7 +238,7 @@
                         </div>
                     </div>
                     <div class="text-danger mt-20">
-                        Peringatan!: Cukup klik submit sekali agar tidak terjadi duplikat data!
+                        Peringatan! Cukup klik submit sekali agar tidak terjadi duplikat data!
                     </div>
 
 
@@ -246,8 +249,10 @@
                         </a>
                         {{-- <a class="btn-hover-bg btn btn-primary rounded-pill text-white " href="#" onclick="event.preventDefault(); const form = document.getElementById('form'); if (form) { form.submit(); }">Reservasi
                         </a> --}}
+
                         <button class="btn-hover-bg btn btn-primary rounded-pill text-white "
                             type="submit">Submit</button>
+
                 </form>
 
             </div>

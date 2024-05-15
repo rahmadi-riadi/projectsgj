@@ -33,7 +33,7 @@ class ReservasiController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'user_id' => 'required',
+            // 'user_id' => 'required',
             'nama' => 'required',
             'nama_instansi' => 'required',
             'nomor_hp' => 'required',
@@ -56,26 +56,29 @@ class ReservasiController extends Controller
         ]);
 
         $reservasi = new Reservasi();
-        $reservasi->user_id = $validatedData['user_id'];
-        $reservasi->nama = $validatedData['nama'];
-        $reservasi->nama_instansi = $validatedData['nama_instansi'];
-        $reservasi->nomor_hp = $validatedData['nomor_hp'];
-        $reservasi->nomor_wa = $validatedData['nomor_wa'];
-        $reservasi->email = $validatedData['email'];
-        $reservasi->provinsi = $validatedData['provinsi'];
-        $reservasi->kota_kabupaten = $validatedData['kota_kabupaten'];
-        $reservasi->alamat_instansi = $validatedData['alamat_instansi'];
-        $reservasi->tanggal = $validatedData['tanggal'];
-        $reservasi->pukul = $validatedData['pukul'];
-        $reservasi->topik = $validatedData['topik'];
-        $reservasi->tujuan_opd = $validatedData['tujuan_opd'];
-        $reservasi->jumlah_rombongan = $validatedData['jumlah_rombongan'];
-        $reservasi->pimpinan = $validatedData['pimpinan'];
-        $reservasi->keterangan = $validatedData['keterangan'];
-        $reservasi->nomor_surat = $validatedData['nomor_surat'];
-        $reservasi->kepada = $validatedData['kepada'];
+        $reservasi->user_id = $auth ->user()->id;
+
+        $reservasi->nama = $request->input('nama');
+        $reservasi->nama_instansi = $request('nama_instansi');
+        $reservasi->nomor_hp = $request('nomor_hp');
+        $reservasi->nomor_wa = $request('nomor_wa');
+        $reservasi->email = $request('email');
+        $reservasi->provinsi = $request('provinsi');
+        $reservasi->kota_kabupaten = $request('kota_kabupaten');
+        $reservasi->alamat_instansi = $request('alamat_instansi');
+        $reservasi->tanggal = $request('tanggal');
+        $reservasi->pukul = $request('pukul');
+        $reservasi->topik = $request('topik');
+        $reservasi->tujuan_opd = $request('tujuan_opd');
+        $reservasi->jumlah_rombongan = $request('jumlah_rombongan');
+        $reservasi->pimpinan = $request('pimpinan');
+        $reservasi->keterangan = $request('keterangan');
+        $reservasi->nomor_surat = $request('nomor_surat');
+        $reservasi->kepada = $request('kepada');
         $reservasi->surat_permohonan = $request->file('surat_permohonan')->store('surat_permohonan_' . time() . '.' . $request->file('surat_permohonan')->getClientOriginalExtension(), 'public/images');
-        $reservasi->is_bukti_inap = $validatedData['is_bukti_inap'];
+        $reservasi->is_bukti_inap = $request('is_bukti_inap');
+
+        create($reservasi);
 
         $reservasi->save();
 

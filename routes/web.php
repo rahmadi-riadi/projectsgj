@@ -49,16 +49,23 @@ Route::get('/admin/posts', function () {
 Route::get('/admin/wisata', function () {
     return view('admin.wisata');
 })->middleware('auth');
+Route::get('/admin/agenda', function () {
+    return view('admin.agenda');
+})->middleware('auth');
+Route::get('/admin/setadmin', function () {
+    return view('admin.setadmin');
+})->middleware('auth');
 
-Route::resource('reservasi', \App\Http\Controllers\ReservasiController::class)->only([
-    'index',
-    'create',
-    'store',
-    'edit',
-    'update',
-    'destroy'
-]);
-Route::post('/reservasi', [ReservasiController::class, 'store'])->name('Reservasi.store');
+// Route::resource('reservasi', \App\Http\Controllers\ReservasiController::class)->only([
+//     'index',
+//     'create',
+//     'store',
+//     'edit',
+//     'update',
+//     'destroy'
+// ]);
+
+Route::post('/reservasi', [ReservasiController::class, 'store']);
 
 // Route::group(['middleware' => ['auth']], function () {
 //     Route::get('/reservasi', function () {
@@ -76,6 +83,7 @@ Route::post('/reservasi', [ReservasiController::class, 'store'])->name('Reservas
 // Route::get('Reservasi/{id}/edit', [ReservasiController::class, 'edit']);
 // Route::put('Reservasi/{id}', [ReservasiController::class, 'update']);
 // Route::delete('Reservasi/{id}', [ReservasiController::class, 'destroy']);
+
 
 
 

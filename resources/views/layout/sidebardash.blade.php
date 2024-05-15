@@ -6,7 +6,10 @@
         <div class="sidebar-brand-icon rotate-n-15">
 
         </div>
-        <div class="sidebar-brand-text mx-3">Halaman Admin</div>
+        <div class="sidebar-brand-text mx-3">
+
+            <span class="text-warning">Halaman Admin</span>
+        </div>
     </a>
 
     <!-- Divider -->
@@ -19,8 +22,8 @@
             <span>Dashboard</span></a>
     </li>
 
-    <li class="nav-item {{ Request::is('dashboard/') ? 'active' : '' }}">
-        <a class="nav-link" href="/dashboard/ticketbox">
+    <li class="nav-item {{ Request::is('dashboard/agenda') ? 'active' : '' }}">
+        <a class="nav-link" href="/admin/agenda">
             <i class="fas fa-calendar-alt"></i>
             <span>Agenda Pertemuan</span></a>
     </li>
@@ -58,7 +61,7 @@
 
     <!-- Heading -->
     <div class="sidebar-heading">
-        Admin
+        Users
     </div>
 
     <li class="nav-item {{ Request::is('dashboard/peserta*') ? 'active' : '' }}">
@@ -75,6 +78,13 @@
                 <a class="collapse-item" href="">Peserta Gagal</a>
             </div>
         </div>
+    </li>
+
+    <li class="nav-item {{ Request::is('dashboard/admin-setting*') ? 'active' : '' }}">
+        <a class="nav-link " href="/admin/setadmin">
+            <i class="fas fa-cog"></i>
+            <span>Atur Admin</span>
+        </a>
     </li>
 
 
