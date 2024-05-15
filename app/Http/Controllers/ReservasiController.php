@@ -32,8 +32,8 @@ class ReservasiController extends Controller
      */
     public function store(Request $request)
     {
+        // Validate the incoming request data
         $validatedData = $request->validate([
-            // 'user_id' => 'required',
             'nama' => 'required',
             'nama_instansi' => 'required',
             'nomor_hp' => 'required',
@@ -51,38 +51,54 @@ class ReservasiController extends Controller
             'keterangan' => 'required',
             'nomor_surat' => 'required|numeric',
             'kepada' => 'required',
-            'surat_permohonan' => 'required|file|image|mimes:1|max:2048',
+            'surat_permohonan' => 'required|file|mimes:jpeg,jpg,png,pdf|max:2048',
             'is_bukti_inap' => 'required',
         ]);
 
+        // Create a new Reservasi instance
         $reservasi = new Reservasi();
-        $reservasi->user_id = $auth ->user()->id;
+        $reservasi->user_id = auth()->user()->id; // Assuming the user is authenticated
 
+        // Assign validated request data to the Reservasi instance
         $reservasi->nama = $request->input('nama');
-        $reservasi->nama_instansi = $request('nama_instansi');
-        $reservasi->nomor_hp = $request('nomor_hp');
-        $reservasi->nomor_wa = $request('nomor_wa');
-        $reservasi->email = $request('email');
-        $reservasi->provinsi = $request('provinsi');
-        $reservasi->kota_kabupaten = $request('kota_kabupaten');
-        $reservasi->alamat_instansi = $request('alamat_instansi');
-        $reservasi->tanggal = $request('tanggal');
-        $reservasi->pukul = $request('pukul');
-        $reservasi->topik = $request('topik');
-        $reservasi->tujuan_opd = $request('tujuan_opd');
-        $reservasi->jumlah_rombongan = $request('jumlah_rombongan');
-        $reservasi->pimpinan = $request('pimpinan');
-        $reservasi->keterangan = $request('keterangan');
-        $reservasi->nomor_surat = $request('nomor_surat');
-        $reservasi->kepada = $request('kepada');
-        $reservasi->surat_permohonan = $request->file('surat_permohonan')->store('surat_permohonan_' . time() . '.' . $request->file('surat_permohonan')->getClientOriginalExtension(), 'public/images');
-        $reservasi->is_bukti_inap = $request('is_bukti_inap');
+        $reservasi->nama_instansi = $request->input('nama_instansi');
+        $reservasi->nomor_hp = $request->input('nomor_hp');
+        $reservasi->nomor_wa = $request->input('nomor_wa');
+        $reservasi->email = $request->input('email');
+        $reservasi->provinsi = $request->input('provinsi');
+        $reservasi->kota_kabupaten = $request->input('kota_kabupaten');
+        $reservasi->alamat_instansi = $request->input('alamat_instansi');
+        $reservasi->tanggal = $request->input('tanggal');
+        $reservasi->pukul = $request->input('pukul');
+        $reservasi->topik = $request->input('topik');
+        $reservasi->tujuan_opd = $request->input('tujuan_opd');
+        $reservasi->jumlah_rombongan = $request->input('jumlah_rombongan');
+        $reservasi->pimpinan = $request->input('pimpinan');
+        $reservasi->keterangan = $request->input('keterangan');
+        $reservasi->nomor_surat = $request->input('nomor_surat');
+        $reservasi->kepada = $request->input('kepada');
 
-        create($reservasi);
+        // Handle file upload for surat_permohonan
+        if ($request->hasFile('surat_permohonan')) {
+            $file = $request->file('surat_permohonan');
+            $filePath = $file->store('surat_permohonan', 'public');
+            $reservasi->surat_permohonan = $filePath;
+        }
 
+        $reservasi->is_bukti_inap = $request->input('is_bukti_inap');
+
+        // Use dd() to debug the Reservasi instance
+        dd($reservasi);
+
+        // Save the Reservasi instance to the database
         $reservasi->save();
 
-        return redirect('/reservasi')->with('success', 'Data berhasil di tambahkan!');
+        // Redirect to the reservasi route with a success message
+        return redirect('/reservasi/form');
+    }
+
+    public function update(Request $request, Reservasi $reservasi){
+
     }
 
 }

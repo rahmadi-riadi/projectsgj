@@ -17,9 +17,6 @@ Route::get('/jadwal', function () {
 Route::get('/galeri', function () {
     return view('galeri');
 });
-Route::get('/reservasi', function () {
-    return view('reservasi');
-});
 Route::get('/peta', function () {
     return view('peta');
 });
@@ -39,8 +36,10 @@ Route::get('auth/google', [LoginGoogleController::class, 'googlepage']);
 Route::get('auth/google/callback', [LoginGoogleController::class, 'googlecallback']);
 Route::get('/logout', [LoginGoogleController::class, 'logout'])->name('logout');
 
-Route::get('/reservasi', [ReservasiController::class, 'index'])->name('reservasi');
-Route::get('/reservasi/form', [ReservasiController::class, 'viewForm'])->name('reservasi');
+Route::get('/reservasi', [ReservasiController::class, 'index']);
+Route::post('/reservasi', [ReservasiController::class, 'store']);
+Route::put('/reservasi', [ReservasiController::class, 'update']);
+Route::get('/reservasi/form', [ReservasiController::class, 'viewForm']);
 
 Route::get('/admin', [DashboardController::class, 'index'])->middleware('auth');
 Route::get('/admin/posts', function () {
@@ -56,16 +55,8 @@ Route::get('/admin/setadmin', function () {
     return view('admin.setadmin');
 })->middleware('auth');
 
-// Route::resource('reservasi', \App\Http\Controllers\ReservasiController::class)->only([
-//     'index',
-//     'create',
-//     'store',
-//     'edit',
-//     'update',
-//     'destroy'
-// ]);
 
-Route::post('/reservasi', [ReservasiController::class, 'store']);
+
 
 // Route::group(['middleware' => ['auth']], function () {
 //     Route::get('/reservasi', function () {

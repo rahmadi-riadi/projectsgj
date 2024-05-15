@@ -41,12 +41,9 @@
             </div>
 
             <div class="container">
-
-
-                <form action="/reservasi" method="POST">
+                <form action="/reservasi" method="POST" enctype="multipart/form-data">
                     @method('put')
                     @csrf
-
                     <div class="form-group mb-3">
                         <label class="required">Nama: </label>
                         <input type="text" class="form-control" id="nama" placeholder="nama">
@@ -226,7 +223,7 @@
                                 Semua pernyataan wajib dicentang
                             </small>
                             <div class="form-check mt-3">
-                                <input class="form-check-input" type="checkbox" value="" id="is_bukti_inap">
+                                <input class="form-check-input" type="checkbox" value="true" id="is_bukti_inap">
                                 <label class="form-check-label" for="defaultCheck1">
                                     Melaporkan bukti inap di wilayah kota Parepare
                                 </label>
