@@ -19,20 +19,29 @@ class LoginController extends Controller
         ]);
     }
 
+
+
     public function authenticate(Request $request)
     {
-        $credential = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required'
-        ]);
+        $credentials = $request->only('email', 'password');
 
-        if (Auth::attempt($credential)) {
-            $request->session()->regenerate();
-            return redirect()->intended('/admin');
+        if (Auth::attempt($credentials)) {
+            // Jika berhasil login
+            if (Auth::user()->isAdmin()) {
+                // Jika pengguna adalah admin
+                return redirect()->route('admin.index');
+            } else {
+                // Jika pengguna adalah pengguna biasa
+                return redirect()->route('/');
+            }
+        } else {
+            // Jika login gagal
+            return back()->withErrors([
+                'email' => 'email tidak cocok dengan database !',
+            ]);
         }
-
-        return back()->with('loginError', 'Login gagal, Email atau Password salah!');
     }
+
 
     public function logout(Request $request)
     {
@@ -46,3 +55,4 @@ class LoginController extends Controller
         return redirect('/login');
     }
 }
+

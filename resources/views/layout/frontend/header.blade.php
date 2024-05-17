@@ -60,8 +60,15 @@
                             </a>
 
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                                <li>
+                                    <form action="/logout-google" method="POST">
+                                        @csrf
+                                        <button type="submit" class="dropdown-item">Logout</button>
+                                    </form>
+                                </li>
                             </ul>
+
+
                         @endauth
                     </li>
 

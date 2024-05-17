@@ -1,21 +1,20 @@
 @extends('layout.frontend.header')
 
 @section('content')
-
-
     <div class="main">
         <!-- Header Start -->
         <div class="container-fluid bg-breadcrumb">
             <div class="container text-center py-5" style="max-width: 900px;">
-                <h3 class="text-white display-3 mb-4">Reservasi Online</h1>
-                    <ol class="breadcrumb justify-content-center mb-0">
-                        <li class="breadcrumb-item"><a href="/">Beranda</a></li>
-                        <li class="breadcrumb-item active text-white"><a href="#">Reservasi Online</a></li>
-                        <li class="breadcrumb-item active text-white">Formulir reservasi</li>
-                    </ol>
+                <h3 class="text-white display-3 mb-4">Reservasi Online</h3>
+                <ol class="breadcrumb justify-content-center mb-0">
+                    <li class="breadcrumb-item"><a href="/">Beranda</a></li>
+                    <li class="breadcrumb-item active text-white"><a href="#">Reservasi Online</a></li>
+                    <li class="breadcrumb-item active text-white">Formulir reservasi</li>
+                </ol>
             </div>
         </div>
         <!-- Header End -->
+
         <div class="container-fluid packages py-5">
             <div class="mx-auto text-center mb-5" style="max-width: 900px;">
                 <h1 class="mb-4">Isi formulir untuk melakukan RESERVASI !</h1>
@@ -25,193 +24,148 @@
                 <div class="alert alert-warning d-flex align-items-center" role="alert">
                     <i class="fas fa-exclamation-triangle me-3"></i>
                     <div>
-                        <h4 class="text-warning">peringatan</h4>
+                        <h4 class="text-warning">Peringatan</h4>
                         Formulir ini merupakan bagian untuk memudahkan proses reservasi. Penjadwalan kunjungan secara resmi
-                        akan dilakukan setelah surat permohonan resi dikirimkan melalui pos .Saat ini anda berapa pada tahap
-                        awal dari syarat yang harus dipenuhi untuk dapat melakukan kunjungan tamu di Pemerintah Kota
-                        Yogyakarta. Silakan lengkapi isian data pada blangko atau formulir yang tertera dibawah ini :
+                        akan dilakukan setelah surat permohonan resmi dikirimkan melalui pos. Saat ini anda berada pada
+                        tahap awal dari syarat yang harus dipenuhi untuk dapat melakukan kunjungan tamu di Pemerintah Kota
+                        Yogyakarta. Silakan lengkapi isian data pada blangko atau formulir yang tertera di bawah ini:
                     </div>
                 </div>
                 <div class="alert alert-primary d-flex align-items-center" role="alert">
-                    <div>
-                        <b>Data Pemohon</b>
-
-                    </div>
+                    <div><b>Data Pemohon</b></div>
                 </div>
-            </div>
 
-            <div class="container">
-                <form action="/reservasi" method="POST" enctype="multipart/form-data">
-                    @method('put')
+                <form action="{{ route('reservasi.store') }}" method="POST" enctype="multipart/form-data">
+                    {{-- @method('PUT') --}}
                     @csrf
+                    @auth
+                        <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                    @endauth
+
                     <div class="form-group mb-3">
-                        <label class="required">Nama: </label>
-                        <input type="text" class="form-control" id="nama" placeholder="nama">
+                        <label class="required">Nama:</label>
+                        <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama"
+                            required>
                     </div>
                     <div class="form-group mb-3">
-                        <label class="required">Nama Instansi Pemohon: </label>
-                        <input type="text" class="form-control" id="nama_instansi" placeholder="nama instansi pemohon">
+                        <label class="required">Nama Instansi Pemohon:</label>
+                        <input type="text" class="form-control" id="nama_instansi" name="nama_instansi"
+                            placeholder="Nama Instansi Pemohon" required>
                     </div>
                     <div class="form-group mb-3">
-                        <label class="required">Nomor HP.(dapat menerima panggilan): </label>
-                        <input type="number" class="form-control" id="nomor_hp" placeholder="nomor hp">
+                        <label class="required">Nama (untuk ditampilkan pada surat):</label>
+                        <input type="text" class="form-control" id="nama_tampilkan" name="nama_tampilkan"
+                            placeholder="Nama untuk ditampilkan pada surat" required>
                     </div>
                     <div class="form-group mb-3">
-                        <label class="required">Nomor WA (boleh sama dengan nomor HP): </label>
-                        <input type="number" class="form-control" id="nomor_wa" placeholder="nomor wa">
+                        <label class="required">Nomor HP (dapat menerima panggilan):</label>
+                        <input type="number" class="form-control" id="nomor_hp" name="nomor_hp" placeholder="Nomor HP"
+                            required>
                     </div>
                     <div class="form-group mb-3">
-                        <label class="required">Email Lembaga/Instansi/Pemohon: </label>
-                        <input type="email" class="form-control" id="email" placeholder="email">
+                        <label class="required">Nomor WA (boleh sama dengan nomor HP):</label>
+                        <input type="number" class="form-control" id="nomor_wa" name="nomor_wa" placeholder="Nomor WA"
+                            required>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label class="required">Email Lembaga/Instansi/Pemohon:</label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="Email"
+                            required>
                     </div>
 
                     <div class="form-group mb-3">
                         <label for="exampleFormControlSelect1">Provinsi:</label>
-                        <select class="form-control" id="provinsi">
-                            <option style="display:none">pilih provinsi</option>
-                            <option value="11">ACEH</option>
-                            <option value="51">BALI</option>
-                            <option value="36">BANTEN</option>
-                            <option value="17">BENGKULU</option>
-                            <option value="34">DAERAH ISTIMEWA YOGYAKARTA</option>
-                            <option value="31">DKI JAKARTA</option>
-                            <option value="75">GORONTALO</option>
-                            <option value="15">JAMBI</option>
-                            <option value="32">JAWA BARAT</option>
-                            <option value="33">JAWA TENGAH</option>
-                            <option value="35">JAWA TIMUR</option>
-                            <option value="61">KALIMANTAN BARAT</option>
-                            <option value="63">KALIMANTAN SELATAN</option>
-                            <option value="62">KALIMANTAN TENGAH</option>
-                            <option value="64">KALIMANTAN TIMUR</option>
-                            <option value="65">KALIMANTAN UTARA</option>
-                            <option value="19">KEP. BANGKA BELITUNG</option>
-                            <option value="21">KEPULAUAN RIAU</option>
-                            <option value="18">LAMPUNG</option>
-                            <option value="81">MALUKU</option>
-                            <option value="82">MALUKU UTARA</option>
-                            <option value="52">NUSA TENGGARA BARAT</option>
-                            <option value="53">NUSA TENGGARA TIMUR</option>
-                            <option value="91">PAPUA</option>
-                            <option value="92">PAPUA BARAT</option>
-                            <option value="96">PAPUA BARAT DAYA</option>
-                            <option value="95">PAPUA PEGUNUNGAN</option>
-                            <option value="93">PAPUA SELATAN</option>
-                            <option value="94">PAPUA TENGAH</option>
-                            <option value="14">RIAU</option>
-                            <option value="76">SULAWESI BARAT</option>
-                            <option value="73">SULAWESI SELATAN</option>
-                            <option value="72">SULAWESI TENGAH</option>
-                            <option value="74">SULAWESI TENGGARA</option>
-                            <option value="71">SULAWESI UTARA</option>
-                            <option value="13">SUMATERA BARAT</option>
-                            <option value="16">SUMATERA SELATAN</option>
-                            <option value="12">SUMATERA UTARA</option>
+                        <select class="form-control" id="provinsi" name="provinsi" required>
+                            <option style="display:none" selected>Pilih Provinsi</option>
+                            <option value="ACEH">ACEH</option>
+                            <option value="BALI">BALI</option>
+                            <!-- other options... -->
                         </select>
                     </div>
                     <div class="form-group mb-3">
-                        <label class="required">Kota/Kabupaten: </label>
-                        <input type="text" class="form-control" id="kota_kabupaten" placeholder="kota/kabupaten">
+                        <label class="required">Kota/Kabupaten:</label>
+                        <input type="text" class="form-control" id="kota_kabupaten" name="kota_kabupaten"
+                            placeholder="Kota/Kabupaten" required>
                     </div>
                     <div class="form-group mb-3">
-                        <label class="required">Alamat Instansi: </label>
-                        <input type="text" class="form-control" id="alamat_instansi" placeholder="alamat instansi">
+                        <label class="required">Alamat Instansi:</label>
+                        <input type="text" class="form-control" id="alamat_instansi" name="alamat_instansi"
+                            placeholder="Alamat Instansi" required>
                     </div>
 
                     <div class="alert alert-primary d-flex align-items-center" role="alert">
-                        <div>
-                            <b>Data Tujuan Reservasi</b>
-
-                        </div>
+                        <div><b>Data Tujuan Reservasi</b></div>
                     </div>
 
-
-                    <a class="btn-hover-bg btn btn-warning rounded-pill text-white mb-3" href="#">Lihat
-                        Jadwal Pertemuan
-                    </a>
+                    <a class="btn-hover-bg btn btn-warning rounded-pill text-white mb-3" href="#">Lihat Jadwal
+                        Pertemuan</a>
 
                     <div class="form-group mb-3">
-                        <label>Hari & pukul kunjungan:</label>
+                        <label>Hari & Pukul Kunjungan:</label>
                         <br />
                         <span class="text-danger fs-8 mt-20 ms-3">Pendaftaran minimal 3 hari kerja.</span>
-                        <input required type="date" class="form-control tanggalreservasi" id="tanggal">
+                        <input required type="date" class="form-control tanggalreservasi" id="tanggal"
+                            name="tanggal_reservasi">
                         <br />
-                        <select class="form-select " name="jam_berkunjung" id="pukul"
-                            data-placeholder="Pilih salah satu" data-allow-clear="true">
+                        <select class="form-select" name="jam_berkunjung" id="pukul" required>
                             <option value="09:00:00">09:00</option>
-                            <option value="09:30:00">09:30</option>
-                            <option value="10:00:00">10:00</option>
-                            <option value="10:30:00">10:30</option>
-                            <option value="11:00:00">11:00</option>
-                            <option value="11:30:00">11:30</option>
-                            <option value="12:00:00">12:00</option>
-                            <option value="12:30:00">12:30</option>
-                            <option value="13:00:00">13:00</option>
+                            <!-- other options... -->
                         </select>
                     </div>
 
                     <div class="form-group mb-3">
                         <label for="exampleFormControlTextarea1">Topik Diskusi:</label>
-                        <textarea class="form-control" id="topik" rows="3"></textarea>
+                        <textarea class="form-control" id="topik" name="topik" rows="3" required></textarea>
                     </div>
 
                     <div class="form-group mb-3">
                         <label for="exampleFormControlSelect1">Tujuan OPD yang akan dikunjungi:</label>
-                        <select class="form-control" id="tujuan_opd">
-                            <option style="display:none"></option>
-                            <option>Kantor walikota</option>
-                            {{-- <option>Kantor walikota</option>
-                            <option>Kantor walikota</option>
-                            <option>Kantor walikota</option>
-                            <option>Kantor walikota</option>
-                            <option>Kantor walikota</option>
-                            <option>Kantor walikota</option>
-                            <option>Kantor walikota</option>
-                            <option>Kantor walikota</option> --}}
+                        <select class="form-control" id="tujuan_opd" name="tujuan_opd" required>
+                            <option style="display:none" selected></option>
+                            <option>Kantor Walikota</option>
+                            <!-- other options... -->
                         </select>
                     </div>
                     <div class="form-group mb-3">
-                        <label for="jumlah_rombongan">Jumlah rombongan:</label>
-                        <input required type="number" class="form-control" onkeypress="return isNumber(event);"
-                            id="jumlah_rombongan">
+                        <label for="jumlah_rombongan">Jumlah Rombongan:</label>
+                        <input required type="number" class="form-control" id="jumlah_rombongan"
+                            name="jumlah_rombongan">
                     </div>
 
                     <div class="form-group mb-3">
-                        <label for="pimpinan_rombongan">Rencanan Pimpinan Rombongan:</label>
-                        <input type="text" class="form-control" id="pimpinan_rombongan"
-                            placeholder="pimpinan rombongan">
+                        <label for="pimpinan_rombongan">Rencana Pimpinan Rombongan:</label>
+                        <input type="text" class="form-control" id="pimpinan_rombongan" name="pimpinan_rombongan"
+                            placeholder="Pimpinan Rombongan">
                     </div>
 
                     <div class="form-group mb-3">
                         <label for="keterangan">Keterangan:</label>
-                        <textarea class="form-control" id="keterangan" rows="3"></textarea>
+                        <textarea class="form-control" id="keterangan" name="keterangan" rows="3"></textarea>
                     </div>
 
                     <div class="alert alert-primary d-flex align-items-center" role="alert">
-                        <div>
-                            <b>Data Surat Permohonan Kunjungan</b>
-
-                        </div>
+                        <div><b>Data Surat Permohonan Kunjungan</b></div>
                     </div>
 
                     <div class="form-group mb-3">
                         <label class="required" for="no_surat">No. Surat Permohonan Kunjungan:</label>
-                        <input type="text" class="form-control" id="no_surat"
-                            placeholder="nomor surat permohonan kunjungan">
+                        <input type="text" class="form-control" id="no_surat" name="no_surat"
+                            placeholder="Nomor Surat Permohonan Kunjungan" required>
                     </div>
 
                     <div class="form-group mb-3">
                         <label class="required" for="kepada">Kepada:</label>
-                        <input type="text" class="form-control form-control-solid" id="kepada" value="Walikota"
-                            readonly>
+                        <input type="text" class="form-control form-control-solid" id="kepada" name="kepada"
+                            value="Walikota" readonly>
                     </div>
 
                     <div class="form-group mb-3">
-                        <label for="surat_permohonan">Surat Permohonan Kunjungan :</label>
-                        <input type="file" class="form-control" accept=".jpeg,.jpg,.png,.pdf" id="surat_permohonan">
+                        <label for="surat_permohonan">Surat Permohonan Kunjungan:</label>
+                        <input type="file" class="form-control" accept=".jpeg,.jpg,.png,.pdf" id="surat_permohonan"
+                            name="surat_permohonan" required>
                         <small class="text-danger mt-20">
-                            File format <span class="fw-bolder">.jpg/.jpeg/.png/.pdf</span>
-                            dan ukuran maks <span class="fw-bolder">3MB</span>
+                            File format <span class="fw-bolder">.jpg/.jpeg/.png/.pdf</span> dan ukuran maks <span
+                                class="fw-bolder">3MB</span>
                         </small>
                     </div>
 
@@ -219,48 +173,45 @@
                         <div>
                             <label>Pernyataan Ketersediaan:</label>
                             <br>
-                            <small class="text-danger mt-20">
-                                Semua pernyataan wajib dicentang
-                            </small>
-                            <div class="form-check mt-3">
-                                <input class="form-check-input" type="checkbox" value="true" id="is_bukti_inap">
-                                <label class="form-check-label" for="defaultCheck1">
-                                    Melaporkan bukti inap di wilayah kota Parepare
+                            <small class="text-muted mt-20 ms-3">Dengan mencentang cek box , saya menyetujui bahwa
+                                data yang saya kirimkan adalah benar.</small>
+                            <div class="form-check">
+                                <input class="form-check-input is_buti_inap" type="checkbox" value="1" id="is_buti_inap" required>
+                                <label class="form-check-label" for="is_buti_inap">
+                                    melampirkan bukti inap di wilayah Kota Parepare
                                 </label>
-
-
                             </div>
-
 
                         </div>
                     </div>
-                    <div class="text-danger mt-20">
-                        Peringatan! Cukup klik submit sekali agar tidak terjadi duplikat data!
+
+
+
+                    <button class="btn btn-hover-bg btn-primary rounded-pill mb-3" type="submit"
+                        id="btnSubmit" disabled>
+                        <i class="fas fa-calendar-alt"></i> Kumpul Permohonan
+                    </button>
+
+                    <script>
+                        const checkbox = document.querySelector('.form-check-input.is_buti_inap');
+                        const buttonSubmit = document.querySelector('#btnSubmit');
+
+                        checkbox.addEventListener('change', () => {
+                            if (checkbox.checked) {
+                                buttonSubmit.disabled = false;
+                            } else {
+                                buttonSubmit.disabled = true;
+                            }
+                        });
+                    </script>
+
+                    <div class="form-group mb-3">
+                        <small id="help_pernyataan_ketersediaan" class="text-danger d-block">
+                            Harap centang cek box pernyataan ketersediaan di atas!
+                        </small>
                     </div>
-
-
-                    <div class="d-flex justify-content-start mt-3">
-
-                        <a class="btn-hover-bg btn btn-outline-primary rounded-pill text-black"
-                            style="margin-right: 10px;" href="/">Batal
-                        </a>
-                        {{-- <a class="btn-hover-bg btn btn-primary rounded-pill text-white " href="#" onclick="event.preventDefault(); const form = document.getElementById('form'); if (form) { form.submit(); }">Reservasi
-                        </a> --}}
-
-                        <button class="btn-hover-bg btn btn-primary rounded-pill text-white "
-                            type="submit">Submit</button>
-
                 </form>
-
             </div>
-
-
-            </form>
-
         </div>
-
-
-    </div>
     </div>
 @endsection
-

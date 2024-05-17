@@ -10,30 +10,29 @@ class Reservasi extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id',
         'nama',
         'nama_instansi',
+        'nama_tampilkan',
         'nomor_hp',
         'nomor_wa',
         'email',
         'provinsi',
         'kota_kabupaten',
         'alamat_instansi',
-        'tanggal',
-        'pukul',
+        'tanggal_reservasi',
+        'jam_berkunjung',
         'topik',
         'tujuan_opd',
         'jumlah_rombongan',
-        'pimpinan',
+        'pimpinan_rombongan',
         'keterangan',
-        'nomor_surat',
+        'no_surat',
         'kepada',
         'surat_permohonan',
-        'is_bukti_inap',
     ];
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 }
-

@@ -2,104 +2,54 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Reservasi;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
+use App\Models\Reservasi;
 
 class ReservasiController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        return view('reservasi', [
-            'title' => 'reservasi',
-            // 'active' => 'login'
-        ]);
-    }
-
-    public function viewForm()
-    {
-        return view('form', [
-            'title' => 'Formulir Reservasi',
-            // 'active' => 'login'
-        ]);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        // Validate the incoming request data
+        // Validasi data reservasi
         $validatedData = $request->validate([
             'nama' => 'required',
             'nama_instansi' => 'required',
+            'nama_tampilkan' => 'required',
             'nomor_hp' => 'required',
             'nomor_wa' => 'required',
             'email' => 'required|email',
             'provinsi' => 'required',
             'kota_kabupaten' => 'required',
             'alamat_instansi' => 'required',
-            'tanggal' => 'required|date',
-            'pukul' => 'required|date_format:H:i',
+            'tanggal_reservasi' => 'required|date',
+            'jam_berkunjung' => 'required',
             'topik' => 'required',
             'tujuan_opd' => 'required',
             'jumlah_rombongan' => 'required|numeric',
-            'pimpinan' => 'required',
-            'keterangan' => 'required',
-            'nomor_surat' => 'required|numeric',
+            'no_surat' => 'required',
             'kepada' => 'required',
-            'surat_permohonan' => 'required|file|mimes:jpeg,jpg,png,pdf|max:2048',
-            'is_bukti_inap' => 'required',
+            'surat_permohonan' => 'required|file|mimes:jpeg,jpg,png,pdf|max:3072', // maksimum 3MB
         ]);
 
-        // Create a new Reservasi instance
-        $reservasi = new Reservasi();
-        $reservasi->user_id = auth()->user()->id; // Assuming the user is authenticated
+        // Dapatkan 'user_id' dari pengguna yang sedang masuk
+        $userId = Auth::id();
 
-        // Assign validated request data to the Reservasi instance
-        $reservasi->nama = $request->input('nama');
-        $reservasi->nama_instansi = $request->input('nama_instansi');
-        $reservasi->nomor_hp = $request->input('nomor_hp');
-        $reservasi->nomor_wa = $request->input('nomor_wa');
-        $reservasi->email = $request->input('email');
-        $reservasi->provinsi = $request->input('provinsi');
-        $reservasi->kota_kabupaten = $request->input('kota_kabupaten');
-        $reservasi->alamat_instansi = $request->input('alamat_instansi');
-        $reservasi->tanggal = $request->input('tanggal');
-        $reservasi->pukul = $request->input('pukul');
-        $reservasi->topik = $request->input('topik');
-        $reservasi->tujuan_opd = $request->input('tujuan_opd');
-        $reservasi->jumlah_rombongan = $request->input('jumlah_rombongan');
-        $reservasi->pimpinan = $request->input('pimpinan');
-        $reservasi->keterangan = $request->input('keterangan');
-        $reservasi->nomor_surat = $request->input('nomor_surat');
-        $reservasi->kepada = $request->input('kepada');
-
-        // Handle file upload for surat_permohonan
+        // Simpan file yang diunggah
         if ($request->hasFile('surat_permohonan')) {
-            $file = $request->file('surat_permohonan');
-            $filePath = $file->store('surat_permohonan', 'public');
-            $reservasi->surat_permohonan = $filePath;
+            $filePath = $request->file('surat_permohonan')->store('public/surat_permohonan');
+            $validatedData['surat_permohonan'] = $filePath;
         }
 
-        $reservasi->is_bukti_inap = $request->input('is_bukti_inap');
+        // Tambahkan 'user_id' ke dalam data yang divalidasi
+        $validatedData['user_id'] = $userId;
 
-        // Use dd() to debug the Reservasi instance
-        dd($reservasi);
-
-        // Save the Reservasi instance to the database
+        // Simpan data ke dalam database
+        $reservasi = new Reservasi($validatedData);
         $reservasi->save();
 
-        // Redirect to the reservasi route with a success message
-        return redirect('/reservasi/form');
+        // Redirect ke halaman keterangan sukses dengan ID reservasi
+        return redirect()->route('keterangan.sukses', ['id' => $reservasi->id]);
     }
 
-    public function update(Request $request, Reservasi $reservasi){
-
-    }
-
+    // Metode lainnya tidak perlu diubah karena tidak terkait langsung dengan penyimpanan 'user_id'
 }
-

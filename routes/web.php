@@ -7,10 +7,11 @@ use App\Http\Controllers\ReservasiController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\LoginGoogleController;
 
-
+// Halaman Utama
 Route::get('/', function () {
     return view('home');
 });
+// Halaman Lainnya
 Route::get('/jadwal', function () {
     return view('jadwal');
 });
@@ -20,63 +21,56 @@ Route::get('/galeri', function () {
 Route::get('/peta', function () {
     return view('peta');
 });
-Route::get('/admin', function () {
-    return view('admin.index');
-});
 
-
-
-// Route::post('/dashboard/daftaradmin', [RegisterController::class, 'store'])->middleware('admin');
-
+// Route untuk login pengguna biasa
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate']);
-Route::post('/logout', [LoginController::class, 'logout']);
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::get('auth/google', [LoginGoogleController::class, 'googlepage']);
+// Route untuk login dengan Google
+Route::get('auth/google', [LoginGoogleController::class, 'googlepage'])->name('google.login');
 Route::get('auth/google/callback', [LoginGoogleController::class, 'googlecallback']);
-Route::get('/logout', [LoginGoogleController::class, 'logout'])->name('logout');
+Route::post('/logout-google', [LoginGoogleController::class, 'logout'])->name('logout-google');
 
-Route::get('/reservasi', [ReservasiController::class, 'index']);
-Route::post('/reservasi', [ReservasiController::class, 'store']);
-Route::put('/reservasi', [ReservasiController::class, 'update']);
-Route::get('/reservasi/form', [ReservasiController::class, 'viewForm']);
+// Route untuk Admin
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin', [DashboardController::class, 'index']);
+    Route::get('/admin/posts', function () {
+        return view('admin.posts');
+    });
+    Route::get('/admin/wisata', function () {
+        return view('admin.wisata');
+    });
+    Route::get('/admin/agenda', function () {
+        return view('admin.agenda');
+    });
+    Route::get('/admin/setadmin', function () {
+        return view('admin.setadmin');
+    });
+});
 
-Route::get('/admin', [DashboardController::class, 'index'])->middleware('auth');
-Route::get('/admin/posts', function () {
-    return view('admin.posts');
-})->middleware('auth');
-Route::get('/admin/wisata', function () {
-    return view('admin.wisata');
-})->middleware('auth');
-Route::get('/admin/agenda', function () {
-    return view('admin.agenda');
-})->middleware('auth');
-Route::get('/admin/setadmin', function () {
-    return view('admin.setadmin');
-})->middleware('auth');
+// Rute untuk halaman reservasi yang menampilkan tombol login dengan Google
+Route::get('/reservasi', function () {
+    if (Auth::check()) {
+        return redirect()->route('reservasi.form');
+    }
+    return view('reservasi');
+})->name('reservasi');
 
+// Rute untuk form reservasi yang membutuhkan autentikasi
+Route::middleware('auth')->group(function () {
+    Route::get('/reservasi/form', function () {
+        return view('form');
+    })->name('reservasi.form');
+    Route::post('/reservasi', [ReservasiController::class, 'store'])->name('reservasi.store');
+    Route::get('/reservasi/{id}/edit', [ReservasiController::class, 'edit'])->name('reservasi.edit');
+});
 
+// Sukses
+Route::get('/sukses', function () {
+    return view('sukses');
+})->name('keterangan.sukses');
 
-
-// Route::group(['middleware' => ['auth']], function () {
-//     Route::get('/reservasi', function () {
-//         return redirect()->route('form');
-//     });
-// });
-
-// Route::get('/reservasi/form', [ReservasiController::class, 'viewForm'])->name('form');
-
-
-
-// Route::get('Reservasi', [ReservasitController::class, 'index']);
-// Route::get('Reservasi/create', [ReservasiController::class, 'create']);
-// Route::post('Reservasi', [ReservasiController::class, 'store']);
-// Route::get('Reservasi/{id}/edit', [ReservasiController::class, 'edit']);
-// Route::put('Reservasi/{id}', [ReservasiController::class, 'update']);
-// Route::delete('Reservasi/{id}', [ReservasiController::class, 'destroy']);
-
-
-
-
-
+// Rute untuk halaman sukses yang mengambil data dari controller
+Route::get('/sukses/{id}', [ReservasiController::class, 'showSuccess'])->name('keterangan.sukses');
 

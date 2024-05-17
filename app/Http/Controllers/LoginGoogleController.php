@@ -58,4 +58,6 @@ class LoginGoogleController extends Controller
 
         return redirect('/'); // Redirect ke halaman utama atau halaman login
     }
+
+
 }
