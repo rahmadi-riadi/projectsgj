@@ -49,9 +49,23 @@
                             <div class="text-center mb-4">
                                 <i class="fa fa-phone-alt fa-3x text-primary mb-3"></i>
                                 <h4 class="text-primary">Seluler</h4>
-                                <p class="mb-0">+012 345 67890</p>
-                                <p class="mb-0">+012 345 67890</p>
+                                <p class="mb-0" onclick="copyToClipboard('+012 345 67890')">+012 345 67890</p>
+                                <p class="mb-0" onclick="copyToClipboard('+012 345 67891')">+012 345 67891</p>
                             </div>
+
+                            <script>
+                                function copyToClipboard(text) {
+                                    navigator.clipboard.writeText(text)
+                                        .then(() => {
+                                            alert('Nomor telepon berhasil disalin ke clipboard');
+                                        })
+                                        .catch(err => {
+                                            console.error('Gagal menyalin ke clipboard:', err);
+                                            alert('Gagal menyalin nomor telepon');
+                                        });
+                                }
+                            </script>
+
 
 
 

@@ -12,50 +12,65 @@
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                 Total Posts</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">100</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $images->count() }}</div>
                         </div>
                         <div class="col-auto">
-                            <i class="fas fa-users fa-2x text-gray-300"></i>
+                            <i class="fas fa-image fa-2x text-gray-300"></i>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-
-
-        <div class="card-body">
-            <div class="table-responsive">
-
-                <table class=" table table-bordered table-striped table-hover datatable datatable-User ">
-
-                    <thead>
-                        <tr style="width: 100%">
-                            <th scope="col" style="width: 1%" class="text-center">NO.</th>
-                            <th scope="col" style="width: 20%" class="text-center">Gambar</th>
-                            <th scope="col" style="width: 10%" class="text-center">Caption</th>
-                            <th scope="col" style="width: 10%" class="text-center">Tanggal</th>
-                            <th scope="col" style="width: 20%" class="text-center">Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>gambar</td>
-                            <td>caption panjang disnini</td>
-                            <td>tgl dd/mm/yyyy</td>
-
-                            <td>
-                                <button type="button" class="btn btn-secondary">Secondary</button>
-                                <button type="button" class="btn btn-success">Success</button>
-                                <button type="button" class="btn btn-danger">Danger</button>
-                                <button type="button" class="btn btn-warning">Warning</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+        <div class="col-12 mb-4">
+            <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                    <h4 class="mb-4">Unggah Gambar Baru</h4>
+                    <form action="{{ route('images.store') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="form-group">
+                            <label for="image">Pilih Gambar</label>
+                            <input type="file" name="image" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Unggah</button>
+                    </form>
+                </div>
             </div>
         </div>
 
-    @endsection
-
+        <div class="col-12">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped table-hover datatable datatable-User">
+                        <thead>
+                            <tr>
+                                <th scope="col" class="text-center">NO.</th>
+                                <th scope="col" class="text-center">Gambar</th>
+                                <th scope="col" class="text-center">Tanggal</th>
+                                <th scope="col" class="text-center">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($images as $image)
+                            <tr>
+                                <th scope="row" class="text-center">{{ $loop->iteration }}</th>
+                                <td class="text-center">
+                                    <img src="{{ asset('storage/' . $image->filename) }}" alt="Gambar" style="width: 100px;">
+                                </td>
+                                <td class="text-center">{{ $image->created_at->format('d/m/Y') }}</td>
+                                <td class="text-center">
+                                    <form action="{{ route('images.destroy', $image->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">Hapus</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection

@@ -1,58 +1,38 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
-use App\Models\User;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\AuthenticatesUsers; // Pastikan mengimpor trait ini
 use Illuminate\Support\Facades\Auth;
+use App\Models\User; // Sesuaikan dengan model User yang digunakan
+use App\Providers\RouteServiceProvider;
 
 class LoginController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    use AuthenticatesUsers; // Gunakan trait AuthenticatesUsers
+
+    protected $redirectTo = RouteServiceProvider::HOME; // Sesuaikan dengan path redirect setelah login
+
+    public function __construct()
     {
-        return view('login.index', [
-            'title' => 'Login',
-            // 'active' => 'login'
-        ]);
+        $this->middleware('guest')->except('logout');
     }
 
-
-
-    public function authenticate(Request $request)
+    // Menentukan field yang digunakan sebagai username
+    public function username()
     {
-        $credentials = $request->only('email', 'password');
+        return 'email'; // Defaultnya adalah 'email', sesuaikan sesuai kebutuhan
+    }
 
-        if (Auth::attempt($credentials)) {
-            // Jika berhasil login
-            if (Auth::user()->isAdmin()) {
-                // Jika pengguna adalah admin
-                return redirect()->route('admin.index');
-            } else {
-                // Jika pengguna adalah pengguna biasa
-                return redirect()->route('/');
-            }
-        } else {
-            // Jika login gagal
-            return back()->withErrors([
-                'email' => 'email tidak cocok dengan database !',
-            ]);
+    // Setelah autentikasi berhasil
+    protected function authenticated(Request $request, $user)
+    {
+        if ($user->isAdmin()) {
+            return redirect()->route('admin.index'); // Redirect admin ke halaman admin
         }
-    }
 
-
-    public function logout(Request $request)
-    {
-
-        Auth::logout();
-
-        $request->session()->invalidate();
-
-        $request->session()->regenerateToken();
-
-        return redirect('/login');
+        return redirect()->route('home'); // Redirect pengguna biasa ke halaman home
     }
 }
-
