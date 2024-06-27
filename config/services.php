@@ -31,6 +31,11 @@ return [
         ],
     ],
 
-    //google login disini
+    'google' => [
+        'client_id' => '762437598320-ut6grjtmfmboenbq5v6l0eanmibtov54.apps.googleusercontent.com',
+        'client_secret' => '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',
+        'redirect' => 'http://127.0.0.1:8000/auth/google/callback',
+
+    ],
 
 ];

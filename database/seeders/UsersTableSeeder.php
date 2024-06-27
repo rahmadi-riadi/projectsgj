@@ -3,23 +3,30 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 
 class UsersTableSeeder extends Seeder
 {
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
     public function run()
     {
-        DB::table('users')->insert([
-            'name' => 'Admin User',
+        // Membuat admin
+        User::create([
+            'name' => 'Admin',
             'email' => 'admin@example.com',
             'password' => Hash::make('password'),
             'role' => 'admin',
         ]);
 
-        DB::table('users')->insert([
+        // Membuat user biasa
+        User::create([
             'name' => 'Regular User',
-            'email' => 'user@example.com',
+            'email' => 'regularuser@example.com',
             'password' => Hash::make('password'),
             'role' => 'user',
         ]);

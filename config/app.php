@@ -4,12 +4,12 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Application Name
+    | Nama Aplikasi
     |--------------------------------------------------------------------------
     |
-    | This value is the name of your application, which will be used when the
-    | framework needs to place the application's name in a notification or
-    | other UI elements where an application name needs to be displayed.
+    | Nilai ini adalah nama aplikasi Anda, yang akan digunakan saat framework
+    | perlu menampilkan nama aplikasi dalam notifikasi atau elemen UI lainnya
+    | di mana nama aplikasi perlu ditampilkan.
     |
     */
 
@@ -17,12 +17,12 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Application Environment
+    | Lingkungan Aplikasi
     |--------------------------------------------------------------------------
     |
-    | This value determines the "environment" your application is currently
-    | running in. This may determine how you prefer to configure various
-    | services the application utilizes. Set this in your ".env" file.
+    | Nilai ini menentukan "lingkungan" di mana aplikasi Anda saat ini berjalan.
+    | Ini dapat menentukan cara Anda mengonfigurasi berbagai layanan yang
+    | digunakan oleh aplikasi Anda. Atur ini dalam file ".env" Anda.
     |
     */
 
@@ -30,12 +30,12 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Application Debug Mode
+    | Mode Debug Aplikasi
     |--------------------------------------------------------------------------
     |
-    | When your application is in debug mode, detailed error messages with
-    | stack traces will be shown on every error that occurs within your
-    | application. If disabled, a simple generic error page is shown.
+    | Saat aplikasi Anda dalam mode debug, pesan kesalahan yang rinci dengan
+    | stack trace akan ditampilkan pada setiap kesalahan yang terjadi dalam
+    | aplikasi Anda. Jika dinonaktifkan, halaman kesalahan generik sederhana ditampilkan.
     |
     */
 
@@ -43,12 +43,12 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Application URL
+    | URL Aplikasi
     |--------------------------------------------------------------------------
     |
-    | This URL is used by the console to properly generate URLs when using
-    | the Artisan command line tool. You should set this to the root of
-    | the application so that it's available within Artisan commands.
+    | URL ini digunakan oleh konsol untuk menghasilkan URL dengan benar saat
+    | menggunakan alat baris perintah Artisan. Anda harus mengatur ini ke root
+    | dari aplikasi Anda sehingga tersedia dalam perintah Artisan.
     |
     */
 
@@ -56,12 +56,12 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Application Timezone
+    | Zona Waktu Aplikasi
     |--------------------------------------------------------------------------
     |
-    | Here you may specify the default timezone for your application, which
-    | will be used by the PHP date and date-time functions. The timezone
-    | is set to "UTC" by default as it is suitable for most use cases.
+    | Di sini Anda dapat menentukan zona waktu default untuk aplikasi Anda, yang
+    | akan digunakan oleh fungsi tanggal dan waktu PHP. Zona waktu ini diatur
+    | ke "UTC" secara default karena sesuai untuk sebagian besar kasus penggunaan.
     |
     */
 
@@ -69,12 +69,12 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Application Locale Configuration
+    | Konfigurasi Locale Aplikasi
     |--------------------------------------------------------------------------
     |
-    | The application locale determines the default locale that will be used
-    | by Laravel's translation / localization methods. This option can be
-    | set to any locale for which you plan to have translation strings.
+    | Locale aplikasi menentukan locale default yang akan digunakan oleh metode
+    | terjemahan / lokalisasi Laravel. Opsi ini dapat diatur ke locale mana pun
+    | yang Anda rencanakan untuk memiliki string terjemahan.
     |
     */
 
@@ -86,12 +86,12 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Encryption Key
+    | Kunci Enkripsi
     |--------------------------------------------------------------------------
     |
-    | This key is utilized by Laravel's encryption services and should be set
-    | to a random, 32 character string to ensure that all encrypted values
-    | are secure. You should do this prior to deploying the application.
+    | Kunci ini digunakan oleh layanan enkripsi Laravel dan harus diatur ke
+    | string acak 32 karakter untuk memastikan bahwa semua nilai terenkripsi
+    | aman. Anda harus melakukan ini sebelum menyebarkan aplikasi.
     |
     */
 
@@ -104,18 +104,17 @@ return [
             explode(',', env('APP_PREVIOUS_KEYS', ''))
         ),
     ],
-    
 
     /*
     |--------------------------------------------------------------------------
-    | Maintenance Mode Driver
+    | Driver Mode Pemeliharaan
     |--------------------------------------------------------------------------
     |
-    | These configuration options determine the driver used to determine and
-    | manage Laravel's "maintenance mode" status. The "cache" driver will
-    | allow maintenance mode to be controlled across multiple machines.
+    | Opsi konfigurasi ini menentukan driver yang digunakan untuk menentukan dan
+    | mengelola status "mode pemeliharaan" Laravel. Driver "cache" akan
+    | memungkinkan mode pemeliharaan dikontrol di beberapa mesin.
     |
-    | Supported drivers: "file", "cache"
+    | Driver yang didukung: "file", "cache"
     |
     */
 
@@ -123,5 +122,71 @@ return [
         'driver' => env('APP_MAINTENANCE_DRIVER', 'file'),
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Penyedia Layanan Autoloaded
+    |--------------------------------------------------------------------------
+    |
+    | Penyedia layanan yang tercantum di sini akan secara otomatis dimuat pada
+    | permintaan ke aplikasi Anda. Jangan ragu untuk menambahkan layanan Anda
+    | sendiri ke array ini untuk memberikan fungsionalitas yang diperluas ke aplikasi Anda.
+    |
+    */
+
+    'providers' => [
+
+        /*
+         * Laravel Framework Service Providers...
+         */
+        Illuminate\Auth\AuthServiceProvider::class,
+        Illuminate\Broadcasting\BroadcastServiceProvider::class,
+        Illuminate\Bus\BusServiceProvider::class,
+        Illuminate\Cache\CacheServiceProvider::class,
+        Illuminate\Foundation\Providers\ConsoleSupportServiceProvider::class,
+        Illuminate\Cookie\CookieServiceProvider::class,
+        Illuminate\Database\DatabaseServiceProvider::class,
+        Illuminate\Encryption\EncryptionServiceProvider::class,
+        Illuminate\Filesystem\FilesystemServiceProvider::class,
+        Illuminate\Foundation\Providers\FoundationServiceProvider::class,
+        Illuminate\Hashing\HashServiceProvider::class,
+        Illuminate\Mail\MailServiceProvider::class,
+        Illuminate\Notifications\NotificationServiceProvider::class,
+        Illuminate\Pagination\PaginationServiceProvider::class,
+        Illuminate\Pipeline\PipelineServiceProvider::class,
+        Illuminate\Queue\QueueServiceProvider::class,
+        Illuminate\Redis\RedisServiceProvider::class,
+        Illuminate\Auth\Passwords\PasswordResetServiceProvider::class,
+        Illuminate\Session\SessionServiceProvider::class,
+        Illuminate\Translation\TranslationServiceProvider::class,
+        Illuminate\Validation\ValidationServiceProvider::class,
+        Illuminate\View\ViewServiceProvider::class,
+
+        /*
+         * Package Service Providers...
+         */
+        Spatie\Permission\PermissionServiceProvider::class,
+
+        /*
+         * Application Service Providers...
+         */
+        App\Providers\AppServiceProvider::class,
+        App\Providers\AuthServiceProvider::class,
+        // App\Providers\BroadcastServiceProvider::class,
+        App\Providers\EventServiceProvider::class,
+        App\Providers\RouteServiceProvider::class,
+
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Kelas Alias
+    |--------------------------------------------------------------------------
+    |
+    | Array alias ini akan didaftarkan saat aplikasi ini dimulai. Namun, jangan
+    | ragu untuk mendaftarkan alias Anda sendiri sebanyak yang Anda inginkan
+    | karena alias ini dimuat "malas" sehingga tidak memperlambat kinerja.
+    |
+    */
 
 ];

@@ -35,7 +35,10 @@ class CreateReservasisTable extends Migration
             $table->string('no_surat');
             $table->string('kepada');
             $table->string('surat_permohonan');
-            $table->string('is_bukti_inap');
+            $table->string('bukti_inap')->nullable();
+
+            $table->enum('status')->nullable();
+
             $table->timestamps();
         });
     }

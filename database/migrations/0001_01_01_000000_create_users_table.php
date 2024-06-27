@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration {
     public function up(): void
     {
+
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->enum('role', ['admin', 'user'])->default('user');
@@ -29,14 +30,20 @@ return new class extends Migration {
             $table->string('id')->primary()->index();
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade')->index();
             $table->string('ip_address', 45)->nullable()->index();
-            $table->string('user_agent')->nullable();
-            $table->longText('payload', 1024)->index('sessions_payload_index');
+            $table->text('user_agent')->nullable(); // Ubah menjadi 'text' jika ingin menangani user agent sebagai teks
+            $table->longText('payload')->nullable(); // Ubah panjang maksimum berdasarkan kebutuhan, dan sesuaikan indeks sesuai kebutuhan aplikasi
             $table->integer('last_activity')->index();
+            $table->timestamps(); // Jika diperlukan, tambahkan timestamp untuk pelacakan waktu pembuatan dan pembaruan record
         });
 
+        // Menghindari penambahan indeks yang sudah ada
         Schema::table('sessions', function (Blueprint $table) {
-            $table->index(['user_agent'], 'sessions_user_agent_index');
-            $table->index(['payload'], 'sessions_payload_index');
+            if (!Schema::hasColumn('sessions', 'user_agent')) {
+                $table->index('user_agent', 'sessions_user_agent_index');
+            }
+            if (!Schema::hasColumn('sessions', 'payload')) {
+                $table->index('payload', 'sessions_payload_index');
+            }
         });
     }
 

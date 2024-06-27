@@ -12,7 +12,7 @@
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                 Total Posts</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $images->count() }}</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"></div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-image fa-2x text-gray-300"></i>
@@ -26,7 +26,7 @@
             <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
                     <h4 class="mb-4">Unggah Gambar Baru</h4>
-                    <form action="{{ route('images.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label for="image">Pilih Gambar</label>
@@ -51,22 +51,22 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($images as $image)
+
                             <tr>
-                                <th scope="row" class="text-center">{{ $loop->iteration }}</th>
+                                <th scope="row" class="text-center"></th>
                                 <td class="text-center">
-                                    <img src="{{ asset('storage/' . $image->filename) }}" alt="Gambar" style="width: 100px;">
+                                    <img src="" alt="Gambar" style="width: 100px;">
                                 </td>
-                                <td class="text-center">{{ $image->created_at->format('d/m/Y') }}</td>
+                                <td class="text-center"></td>
                                 <td class="text-center">
-                                    <form action="{{ route('images.destroy', $image->id) }}" method="POST">
+                                    <form action="" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger">Hapus</button>
                                     </form>
                                 </td>
                             </tr>
-                            @endforeach
+
                         </tbody>
                     </table>
                 </div>

@@ -10,6 +10,7 @@ class Reservasi extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'nama',
         'nama_instansi',
         'nama_tampilkan',
@@ -29,6 +30,8 @@ class Reservasi extends Model
         'no_surat',
         'kepada',
         'surat_permohonan',
+        'status',
+        'bukti_inap'
     ];
 
     public function user()

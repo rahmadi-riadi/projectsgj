@@ -1,10 +1,8 @@
-<body class="bg-gradient-primary">
-    @extends('layout.dash')
+@extends('layout.dash')
 
-    @section('container')
-
+@section('container')
+    <body class="bg-gradient-primary">
         <div class="row justify-content-center align-items-center vh-100">
-
             <div class="col-xl-10 col-lg-7 col-md-9">
                 @if (session()->has('success'))
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -23,20 +21,20 @@
                         <!-- Nested Row within Card Body -->
                         <div class="row">
                             <div class="col-lg-6 d-none d-lg-block bg-login-image"
-                                style="background-image: url('/frontend/assets/img/Monumen_Habibie_Ainun.jpg')">
+                                style="background-image: url('/frontend/assets/img/Monumen_Habibie_Ainun.jpg');">
                             </div>
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Welcome Admin</h1>
                                     </div>
-                                    <form class="user" action="/login" method="POST">
+                                    <form class="user" action="{{ route('login') }}" method="POST">
                                         @csrf
                                         <div class="form-group">
                                             <input type="email"
                                                 class="form-control form-control-user @error('email') is-invalid @enderror"
-                                                id="email" name="email" placeholder="Masukkan Alamat Email ..." autofocus
-                                                value="{{ old('email') }}">
+                                                id="email" name="email" placeholder="Masukkan Alamat Email ..."
+                                                autofocus value="{{ old('email') }}">
                                             @error('email')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}
@@ -60,10 +58,7 @@
                         </div>
                     </div>
                 </div>
-
             </div>
-
         </div>
-    @endsection
-</body>
-
+    </body>
+@endsection

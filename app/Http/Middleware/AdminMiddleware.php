@@ -8,19 +8,12 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminMiddleware
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @return mixed
-     */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next)
     {
-        if (!Auth::check() || !Auth::user()->isAdmin()) {
-            abort(403, 'Unauthorized action.'); // Redirect or return a 403 Forbidden response
+        if (Auth::guard('admin')->check() && Auth::guard('admin')->user()->hasRole(['admin', 'superadmin'])) {
+            return $next($request);
         }
 
-        return $next($request);
+        return redirect('/')->with('error', 'Unauthorized.');
     }
 }

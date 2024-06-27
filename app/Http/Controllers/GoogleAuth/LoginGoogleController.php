@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\GoogleAuth;
 
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Exception;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 
 class LoginGoogleController extends Controller
@@ -27,7 +28,9 @@ class LoginGoogleController extends Controller
         try {
             $googleUser = Socialite::driver('google')->user();
 
-            $finduser = User::where('google_id', $googleUser->id)->orWhere('email', $googleUser->email)->first();
+            $finduser = User::where('google_id', $googleUser->id)
+                ->orWhere('email', $googleUser->email)
+                ->first();
 
             if ($finduser) {
                 Auth::login($finduser);
@@ -46,7 +49,7 @@ class LoginGoogleController extends Controller
         } catch (Exception $e) {
             // Log the error for debugging
             \Log::error('Google login error: ' . $e->getMessage());
-            return redirect('/login')->with('error', 'Login dengan Google gagal, silakan coba lagi.');
+            return redirect('/reservasi')->with('error', 'Login dengan Google gagal, silakan coba lagi.');
         }
     }
 
@@ -61,11 +64,6 @@ class LoginGoogleController extends Controller
 
         $request->session()->regenerateToken();
 
-        if (Route::has('admin.index')) {
-            return redirect()->route('admin.index');
-        } else {
-            return redirect('/'); // Redirect ke halaman utama atau halaman login
-        }
+        return redirect('/'); // Redirect ke halaman utama atau halaman login
     }
 }
-

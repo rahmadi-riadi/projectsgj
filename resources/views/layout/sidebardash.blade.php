@@ -29,7 +29,7 @@
     </li>
 
     <li class="nav-item {{ Request::is('dashboard/') ? 'active' : '' }}">
-        <a class="nav-link" href="/dashboard/ticketbox">
+        <a class="nav-link" href="">
             <i class="fas fa-handshake"></i>
             <span>Layanan</span></a>
     </li>
